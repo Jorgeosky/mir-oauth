@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import Styled from "styled-components";
 import GithubIcon from "mdi-react/GithubIcon";
 import { AuthContext } from "../App";
+import axios from "axios";
 
 
 export default function Login() {
@@ -28,24 +29,20 @@ export default function Login() {
 
       const proxy_url = state.proxy_url;
 
-      // Use code parameter and other parameters to make POST request to proxy_server
-      fetch(proxy_url, {
-        method: "POST",
-        body: JSON.stringify(requestData)
-      })
-        .then(response => response.json())
-        .then(data => {
-          dispatch({
-            type: "LOGIN",
-            payload: { user: data, isLoggedIn: true }
-          });
-        })
-        .catch(error => {
-          setData({
-            isLoading: false,
-            errorMessage: "Sorry! Login failed"
-          });
+      try {
+        axios.post(proxy_url, requestData)
+          .then((res) => {
+            dispatch({
+              type: "LOGIN",
+              payload: { user: res, isLoggedIn: true }
+            })
+          })
+      } catch (e) {
+        setData({
+          isLoading: false,
+          errorMessage: "Sorry! Login failed"
         });
+      }
     }
   }, [state, dispatch, data]);
 

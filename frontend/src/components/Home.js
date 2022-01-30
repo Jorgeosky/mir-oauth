@@ -11,7 +11,7 @@ export default function Home() {
     return <Redirect to="/login" />;
   }
 
-  const { avatar_url, name, public_repos, followers, following } = state.user
+  const { avatar_url, name, public_repos, followers, following } = state.user.data
 
   const handleLogout = () => {
     dispatch({
