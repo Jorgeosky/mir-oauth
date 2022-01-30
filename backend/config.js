@@ -10,8 +10,6 @@ const config = {
   proxy_url: process.env.REACT_APP_PROXY_URL
 };
 
-console.log(config);
-
 const envVarsSchema = Joi.object({
   client_id: Joi.string().required(),
   redirect_uri: Joi.string().required(),
